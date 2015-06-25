@@ -1,12 +1,11 @@
 import numpy as np
 from sklearn import svm, grid_search
 
-def fit_ipw_svm(x, y, ts, tsy, weights, C):
+def fit_ipw_svm(x, y, ts, weights, C):
 	#convert to numpy arrays
 	nX = np.array(x,ndmin=2)
 	ntsX = np.array(ts,ndmin=2)
 	nY = np.array(y,ndmin=1)/1.0
-	ntsY = np.array(tsy,ndmin=1)/1.0
 	#for tuning
 	paramGrid = [
 	{'C': C, 'kernel': ['linear']}
