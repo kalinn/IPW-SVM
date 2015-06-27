@@ -66,8 +66,8 @@ hist(ipweights)
 
 N.B. If some of the estimated weights are extremely large, one may consider truncating the predicted probabilities (e.g., at the 5th percentile) or using stabilized weights. Define $S_{i} = \mbox{pr}(d_{i}=1 \; | \; a1_{i}, a2_{i})$ and $M_{i} = \mbox{pr}(d_{i}=1)$ as well as corresponding estimates $\hat{S}_{i} = \hat{\mbox{pr}}(d_{i}=1 \; | \; a1_{i}, a2_{i})$ and $\hat{M}_{i} = \hat{\mbox{pr}}(d_{i}=1)$, Then, stabilized weights and their corresponding estimates are defined, respectively, as:
 
-$\begin{eqnarray} W_{i}^{s} = d_{i}\frac{M_{i}}{S_{i}} + (1-d_{i})\frac{1-M_{i}}{1-S_{i}} \\ \hat{W}_{i}^{s} = d_{i}\frac{\hat{M}_{i}}{\hat{S}_{i}} + (1-d_{i})\frac{1-\hat{M}_{i}}{1-\hat{S}_{i}}
-\end{eqnarray}$
+\begin{eqnarray} W_{i}^{s} = d_{i}\frac{M_{i}}{S_{i}} + (1-d_{i})\frac{1-M_{i}}{1-S_{i}} \\ \hat{W}_{i}^{s} = d_{i}\frac{\hat{M}_{i}}{\hat{S}_{i}} + (1-d_{i})\frac{1-\hat{M}_{i}}{1-\hat{S}_{i}}
+\end{eqnarray}
 
 ## Train the inverse probability weighted SVM (IPW-SVM)
 
