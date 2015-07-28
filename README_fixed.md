@@ -1,11 +1,8 @@
----
-output: pdf_document
----
 # Using Inverse Probability Weighting with SVMs to Address Confounding
 ### by Kristin A. Linn
 ### June 25, 2015
 
-Here we provide an example of how to implement inverse probability weighting with SVMs to address confounding.  The basic setup is that we have feature, class label pairs of the form ![latex equation](eq_no_01.pdf) for each subject, i=1,...,n, where ![latex equation](eq_no_02.pdf) and ![latex equation](eq_no_03.pdf) for all i. We wish to train a SVM to predict y given x. As an example, y might be an indicator of disease/control group and x might be a vectorized image containing voxel values or volumes of regions across the brain. However, the additional feature vector a_i \in R^s observed for all subjects confounds the relationship between x and y. For example, a might contain covariates such as age and sex.  In the presence of confounding by a, inverse probability weighting is used to recover an estimate of the target classifier, which is the SVM classifier that would have been estimated had there been no confounding by a.
+Here we provide an example of how to implement inverse probability weighting with SVMs to address confounding.  The basic setup is that we have feature, class label pairs of the form ![latex equation](https://raw.githubusercontent.com/kalinn/IPW-SVM/master/eq_no_01.pdf) for each subject, i=1,...,n, where ![latex equation](https://raw.githubusercontent.com/kalinn/IPW-SVM/master/eq_no_02.pdf) and ![latex equation](https://raw.githubusercontent.com/kalinn/IPW-SVM/master/eq_no_03.pdf) for all i. We wish to train a SVM to predict y given x. As an example, y might be an indicator of disease/control group and x might be a vectorized image containing voxel values or volumes of regions across the brain. However, the additional feature vector a_i \in R^s observed for all subjects confounds the relationship between x and y. For example, a might contain covariates such as age and sex.  In the presence of confounding by a, inverse probability weighting is used to recover an estimate of the target classifier, which is the SVM classifier that would have been estimated had there been no confounding by a.
 
 
 
@@ -21,15 +18,6 @@ We use the package 'rPython' to access libSVM (https://www.csie.ntu.edu.tw/~cjli
 library(MASS)
 library(rPython)
 python.load("/Users/kalinn/Projects/GitHub/IPW-SVM/fit_svm.py")
-```
-
-```
-## Warning in file(con, "r"): cannot open file
-## '/Users/kalinn/GitHub/IPW-SVM/fit_svm.py': No such file or directory
-```
-
-```
-## Error in file(con, "r"): cannot open the connection
 ```
 
 ## Generate data for example
@@ -105,10 +93,6 @@ ipweights = as.numeric (as.character (ipweights))
 train.svm = python.call("fit_ipw_svm", features, d, features, ipweights, cost)
 ```
 
-```
-## Error in python.exec(python.command): name 'fit_ipw_svm' is not defined
-```
-
 ## Return parameters of interest
 
 
@@ -118,7 +102,9 @@ train.svm[[1]]
 ```
 
 ```
-## Error in eval(expr, envir, enclos): object 'train.svm' not found
+##  [1] -0.66533796 -0.14721484  0.05854694  0.09236095 -0.01946121
+##  [6]  0.04282386  0.19783387  0.10237772  0.14718099 -0.17798311
+## [11]  0.15213712 -0.17161128
 ```
 
 ```r
@@ -127,7 +113,7 @@ train.svm[[2]]
 ```
 
 ```
-## Error in eval(expr, envir, enclos): object 'train.svm' not found
+## [1] -0.03328263
 ```
 
 ```r
@@ -136,7 +122,12 @@ train.svm[[3]]
 ```
 
 ```
-## Error in eval(expr, envir, enclos): object 'train.svm' not found
+##   [1] 0 0 1 1 0 1 1 0 0 1 1 0 0 0 1 1 1 1 1 0 0 0 0 1 0 0 1 0 0 1 0 0 1 1 0
+##  [36] 1 1 0 1 0 1 0 1 0 1 1 1 0 1 1 0 1 1 1 1 0 0 0 0 0 1 0 0 0 0 0 0 1 0 0
+##  [71] 1 1 0 1 0 1 0 0 0 1 1 1 1 0 0 0 0 0 1 0 0 0 1 0 0 1 0 1 0 1 1 0 1 1 0
+## [106] 0 0 1 0 0 1 1 1 1 0 0 0 0 0 0 1 1 1 0 1 1 0 0 0 1 1 0 0 1 0 1 1 0 1 1
+## [141] 1 0 1 1 0 0 0 0 1 1 0 0 1 0 0 0 1 0 0 0 0 1 0 1 1 0 1 1 1 0 1 0 0 1 0
+## [176] 0 0 0 1 1 1 1 0 0 1 0 0 1 0 1 1 0 0 1 1 0 1 0 0 1
 ```
 
 
