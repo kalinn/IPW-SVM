@@ -3,35 +3,35 @@
 ### June 25, 2015
 
 Here we provide an example of how to implement inverse probability weighting with SVMs to address confounding.  The basic setup is that we have feature, class label pairs of the form 
-<img src="https://rawgit.com/kalinn/IPW-SVM/master/eq_no_03.png" alt="Equation Fail"height="20">
+<img src="https://rawgit.com/kalinn/IPW-SVM/master/equations/eq_no_03.png" alt="Equation Fail"height="20">
  for each subject, 
-<img src="https://rawgit.com/kalinn/IPW-SVM/master/eq_no_04.png" alt="Equation Fail"height="20">
+<img src="https://rawgit.com/kalinn/IPW-SVM/master/equations/eq_no_04.png" alt="Equation Fail"height="20">
 , where 
-<img src="https://rawgit.com/kalinn/IPW-SVM/master/eq_no_05.png" alt="Equation Fail"height="20">
+<img src="https://rawgit.com/kalinn/IPW-SVM/master/equations/eq_no_05.png" alt="Equation Fail"height="20">
  and 
-<img src="https://rawgit.com/kalinn/IPW-SVM/master/eq_no_06.png" alt="Equation Fail"height="20">
+<img src="https://rawgit.com/kalinn/IPW-SVM/master/equations/eq_no_06.png" alt="Equation Fail"height="20">
  for all 
-<img src="https://rawgit.com/kalinn/IPW-SVM/master/eq_no_07.png" alt="Equation Fail"height="20">
+<img src="https://rawgit.com/kalinn/IPW-SVM/master/equations/eq_no_07.png" alt="Equation Fail"height="20">
 . We wish to train a SVM to predict 
-<img src="https://rawgit.com/kalinn/IPW-SVM/master/eq_no_08.png" alt="Equation Fail"height="20">
+<img src="https://rawgit.com/kalinn/IPW-SVM/master/equations/eq_no_08.png" alt="Equation Fail"height="20">
  given 
-<img src="https://rawgit.com/kalinn/IPW-SVM/master/eq_no_09.png" alt="Equation Fail"height="20">
+<img src="https://rawgit.com/kalinn/IPW-SVM/master/equations/eq_no_09.png" alt="Equation Fail"height="20">
 . As an example, 
-<img src="https://rawgit.com/kalinn/IPW-SVM/master/eq_no_10.png" alt="Equation Fail"height="20">
+<img src="https://rawgit.com/kalinn/IPW-SVM/master/equations/eq_no_10.png" alt="Equation Fail"height="20">
  might be an indicator of disease/control group and 
-<img src="https://rawgit.com/kalinn/IPW-SVM/master/eq_no_11.png" alt="Equation Fail"height="20">
+<img src="https://rawgit.com/kalinn/IPW-SVM/master/equations/eq_no_11.png" alt="Equation Fail"height="20">
  might be a vectorized image containing voxel values or volumes of regions across the brain. However, the additional feature vector 
-<img src="https://rawgit.com/kalinn/IPW-SVM/master/eq_no_12.png" alt="Equation Fail"height="20">
+<img src="https://rawgit.com/kalinn/IPW-SVM/master/equations/eq_no_12.png" alt="Equation Fail"height="20">
  observed for all subjects confounds the relationship between 
-<img src="https://rawgit.com/kalinn/IPW-SVM/master/eq_no_13.png" alt="Equation Fail"height="20">
+<img src="https://rawgit.com/kalinn/IPW-SVM/master/equations/eq_no_13.png" alt="Equation Fail"height="20">
  and 
-<img src="https://rawgit.com/kalinn/IPW-SVM/master/eq_no_14.png" alt="Equation Fail"height="20">
+<img src="https://rawgit.com/kalinn/IPW-SVM/master/equations/eq_no_14.png" alt="Equation Fail"height="20">
 . For example, 
-<img src="https://rawgit.com/kalinn/IPW-SVM/master/eq_no_15.png" alt="Equation Fail"height="20">
+<img src="https://rawgit.com/kalinn/IPW-SVM/master/equations/eq_no_15.png" alt="Equation Fail"height="20">
  might contain covariates such as age and sex.  In the presence of confounding by 
-<img src="https://rawgit.com/kalinn/IPW-SVM/master/eq_no_16.png" alt="Equation Fail"height="20">
+<img src="https://rawgit.com/kalinn/IPW-SVM/master/equations/eq_no_16.png" alt="Equation Fail"height="20">
 , inverse probability weighting is used to recover an estimate of the target classifier, which is the SVM classifier that would have been estimated had there been no confounding by 
-<img src="https://rawgit.com/kalinn/IPW-SVM/master/eq_no_17.png" alt="Equation Fail"height="20">
+<img src="https://rawgit.com/kalinn/IPW-SVM/master/equations/eq_no_17.png" alt="Equation Fail"height="20">
 .
 
 
@@ -41,7 +41,7 @@ set.seed (1)
 ```
 
 We use the package 'rPython' to access libSVM (https://www.csie.ntu.edu.tw/~cjlin/libsvm/) through scikit learn (http://scikit-learn.org/stable/). The file fit_svm.py contains a python function that implements a linear kernel SVM with subject-level weights and a grid search to tune the cost parameter, 
-<img src="https://rawgit.com/kalinn/IPW-SVM/master/eq_no_18.png" alt="Equation Fail"height="20">
+<img src="https://rawgit.com/kalinn/IPW-SVM/master/equations/eq_no_18.png" alt="Equation Fail"height="20">
 .
 
 
@@ -55,15 +55,15 @@ python.load("/Users/kalinn/Projects/GitHub/IPW-SVM/fit_svm.py")
 ## Generate data for example
 
 We generate data such that the confounders, 
-<img src="https://rawgit.com/kalinn/IPW-SVM/master/eq_no_19.png" alt="Equation Fail"height="20">
+<img src="https://rawgit.com/kalinn/IPW-SVM/master/equations/eq_no_19.png" alt="Equation Fail"height="20">
  and 
-<img src="https://rawgit.com/kalinn/IPW-SVM/master/eq_no_20.png" alt="Equation Fail"height="20">
+<img src="https://rawgit.com/kalinn/IPW-SVM/master/equations/eq_no_20.png" alt="Equation Fail"height="20">
 , affect both the features, 
-<img src="https://rawgit.com/kalinn/IPW-SVM/master/eq_no_21.png" alt="Equation Fail"height="20">
+<img src="https://rawgit.com/kalinn/IPW-SVM/master/equations/eq_no_21.png" alt="Equation Fail"height="20">
  and 
-<img src="https://rawgit.com/kalinn/IPW-SVM/master/eq_no_22.png" alt="Equation Fail"height="20">
+<img src="https://rawgit.com/kalinn/IPW-SVM/master/equations/eq_no_22.png" alt="Equation Fail"height="20">
 , as well as the class labels, 
-<img src="https://rawgit.com/kalinn/IPW-SVM/master/eq_no_23.png" alt="Equation Fail"height="20">
+<img src="https://rawgit.com/kalinn/IPW-SVM/master/equations/eq_no_23.png" alt="Equation Fail"height="20">
 .
 
 
@@ -95,15 +95,15 @@ features = data.frame(x1=x1, x2=x2, noise=noise)
 ## Estimate the inverse probability weights
 
 Here, we estimate the weights by fitting a logistic regression of class (
-<img src="https://rawgit.com/kalinn/IPW-SVM/master/eq_no_24.png" alt="Equation Fail"height="20">
+<img src="https://rawgit.com/kalinn/IPW-SVM/master/equations/eq_no_24.png" alt="Equation Fail"height="20">
 ) on confounders (
-<img src="https://rawgit.com/kalinn/IPW-SVM/master/eq_no_25.png" alt="Equation Fail"height="20">
+<img src="https://rawgit.com/kalinn/IPW-SVM/master/equations/eq_no_25.png" alt="Equation Fail"height="20">
  and 
-<img src="https://rawgit.com/kalinn/IPW-SVM/master/eq_no_26.png" alt="Equation Fail"height="20">
+<img src="https://rawgit.com/kalinn/IPW-SVM/master/equations/eq_no_26.png" alt="Equation Fail"height="20">
 ). However, more flexible methods can be substituted here to obtain estimates of the weights. All that is needed is an estimate of 
-<img src="https://rawgit.com/kalinn/IPW-SVM/master/eq_no_27.png" alt="Equation Fail"height="20">
+<img src="https://rawgit.com/kalinn/IPW-SVM/master/equations/eq_no_27.png" alt="Equation Fail"height="20">
  for each subject, 
-<img src="https://rawgit.com/kalinn/IPW-SVM/master/eq_no_28.png" alt="Equation Fail"height="20">
+<img src="https://rawgit.com/kalinn/IPW-SVM/master/equations/eq_no_28.png" alt="Equation Fail"height="20">
 .
 
 
@@ -123,21 +123,21 @@ hist(ipweights)
 ![plot of chunk unnamed-chunk-4](figure/unnamed-chunk-4-1.png) 
 
 N.B. If some of the estimated weights are extremely large, one may consider truncating the predicted probabilities (e.g., at the 5th percentile) or using stabilized weights. Define 
-<img src="https://rawgit.com/kalinn/IPW-SVM/master/eq_no_29.png" alt="Equation Fail"height="20">
+<img src="https://rawgit.com/kalinn/IPW-SVM/master/equations/eq_no_29.png" alt="Equation Fail"height="20">
  and 
-<img src="https://rawgit.com/kalinn/IPW-SVM/master/eq_no_30.png" alt="Equation Fail"height="20">
+<img src="https://rawgit.com/kalinn/IPW-SVM/master/equations/eq_no_30.png" alt="Equation Fail"height="20">
  as well as corresponding estimates 
-<img src="https://rawgit.com/kalinn/IPW-SVM/master/eq_no_31.png" alt="Equation Fail"height="20">
+<img src="https://rawgit.com/kalinn/IPW-SVM/master/equations/eq_no_31.png" alt="Equation Fail"height="20">
  and 
-<img src="https://rawgit.com/kalinn/IPW-SVM/master/eq_no_32.png" alt="Equation Fail"height="20">
+<img src="https://rawgit.com/kalinn/IPW-SVM/master/equations/eq_no_32.png" alt="Equation Fail"height="20">
 , Then, stabilized weights and their corresponding estimates are defined, respectively, as:
 
 
-<img src="https://rawgit.com/kalinn/IPW-SVM/master/eq_no_01.png" alt="Equation Fail"height="20">
+<img src="https://rawgit.com/kalinn/IPW-SVM/master/equations/eq_no_01.png" alt="Equation Fail"height="20">
 
 
 
-<img src="https://rawgit.com/kalinn/IPW-SVM/master/eq_no_02.png" alt="Equation Fail"height="20">
+<img src="https://rawgit.com/kalinn/IPW-SVM/master/equations/eq_no_02.png" alt="Equation Fail"height="20">
 
 
 ## Train the inverse probability weighted SVM (IPW-SVM)
